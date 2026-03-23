@@ -7,27 +7,18 @@ body {
 }
 
 h1 {
-    /* 1. Memilih jenis font */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            
-    /* 2. Mengatur ukuran tulisan */
     font-size: 48px;
-            
-    /* 3. Mengatur ketebalan (bold) */
     font-weight: bold;
-            
-    /* 4. Mengubah warna tulisan */
     color: #2c3e50;
-            
-    /* 5. Membuat tulisan di tengah (opsional) */
     text-align: center;
 }
 
 .header-container {
-    position: relative; /* KUNCI: Biarkan anak-anaknya bisa diposisikan secara absolut */
+    position: relative; 
     width: 100%;
-    text-align: center; /* Membantu memposisikan foto ke tengah */
-    margin-bottom: 70px; /* Memberi ruang di bawah karena foto menonjol keluar */
+    text-align: center;
+    margin-bottom: 70px; 
 }
 
 .foto-profil {
@@ -36,57 +27,51 @@ h1 {
     object-fit: cover;
     border-radius: 100%;
     
-    /* --- KUNCI BIAR NIMPA --- */
-    position: absolute; /* Membuat foto melayang bebas dari barisan */
-    bottom: -75px;      /* Geser ke bawah melewati batas banner (setengah ukuran foto) */
-    left: 50%;          /* Geser ke tengah horizontal */
-    transform: translateX(-50%); /* Trik agar posisi tengahnya presisi */
+    position: absolute; 
+    bottom: -75px;      
+    left: 50%;          
+    transform: translateX(-50%); 
     
-    /* Efek depth yang kamu mau */
     box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.3);
     
-    /* Transisi untuk efek hover nanti */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    z-index: 10;        /* Memastikan foto di atas banner */
+    z-index: 10;       
 }
 
-/* Biar tetap bisa membesar saat disentuh mouse tanpa merusak posisi tengah */
 .foto-profil:hover {
     transform: translateX(-50%) scale(1.05);
     box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.4);
 }
 
 .title {
-    margin-top: 85px; /* Memberi ruang agar nama tidak tertutup foto profil */
+    margin-top: 85px; 
     margin-bottom: 10px;
 }
 
 /* --- GAYA UNTUK BANNER --- */
 .banner {
     width: 100%;
-    height: 200px; /* Tentukan tinggi banner. Sesuaikan selera (misalnya 250px atau 350px) */
-    background-image: url('kisah.jpg'); /* GANTI DENGAN NAMA FILE BANNERMU */
-    background-size: cover; /* Agar gambar banner menutupi seluruh area tanpa gepeng */
-    background-position: center; /* Agar bagian tengah gambar banner yang terlihat */
+    height: 200px; 
+    background-image: url('kisah.jpg'); 
+    background-size: cover; 
+    background-position: center; 
     background-repeat: no-repeat;
 }
 
-/* Container untuk About Me agar rapi di tengah */
 .about-container {
     background: rgb(255, 255, 255);
-    padding: 30px 5%; /* Padding samping pakai % agar ikut fleksibel */
+    padding: 30px 5%; 
     border-radius: 15px;
     
-    /* KUNCI UTAMA DI SINI */
-    width: 85%;       /* Kotak akan selalu memakan 85% lebar layar */
-    max-width: 900px; /* Batas maksimal biar gak kelebaran di monitor gede */
-    min-width: 300px; /* Batas minimal biar gak kekecilan di HP */
+    width: 85%;       
+    max-width: 900px; 
+    min-width: 300px; 
     
-    margin: 20px auto; /* Tetap di tengah */
+    margin: 20px auto; 
     text-align: center;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     
-    /* Transisi halus saat window di-resize */
+   
     transition: width 0.3s ease; 
 }
 
@@ -95,23 +80,22 @@ h1 {
     margin-bottom: 10px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    border-bottom: 2px solid #3498db; /* Garis bawah hiasan */
+    border-bottom: 2px solid #3498db; 
     display: inline-block;
 }
 
 .stats-text {
     line-height: 1.6;
     color: #555;
-    font-size: 1.1rem; /* Gunakan rem agar ukuran font lebih proporsional */
+    font-size: 1.1rem; 
     margin-bottom: 15px;
-    word-wrap: break-word; /* Mencegah teks keluar kotak */
+    word-wrap: break-word;
 }
 
-/* --- GAYA UNTUK SEKSI PROYEK --- */
 .projects-section {
-    width: 90%; /* Fleksibel mengikuti lebar layar */
-    max-width: 1200px; /* Batas maksimal di monitor besar */
-    margin: 50px auto; /* Jarak atas/bawah dan posisi tengah */
+    width: 90%; 
+    max-width: 1200px; 
+    margin: 50px auto; 
     text-align: center;
 }
 
@@ -123,53 +107,47 @@ h1 {
     letter-spacing: 1px;
 }
 
-/* --- KUNCI: CSS GRID UNTUK LAYOUT thumbnail --- */
 .projects-grid {
     display: grid;
-    /* Membuat kolom otomatis yang fleksibel (minimal 300px per kotak) */
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px; /* Jarak antar kotak proyek */
+    gap: 20px;
 }
 
-/* --- GAYA UNTUK KOTAK PROYEK (KARTU) --- */
 .project-card {
     background: white;
     border-radius: 12px;
-    overflow: hidden; /* Agar sudut gambar ikut melengkung */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08); /* Efek depth tipis */
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08); 
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer; /* Mengubah kursor jadi tangan (indikator bisa ditekan) */
+    cursor: pointer; 
 }
 
-/* Efek hover agar kotak menonjol saat didekati mouse */
+
 .project-card:hover {
-    transform: translateY(-5px); /* Kotak sedikit terangkat */
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15); /* Bayangan jadi lebih kuat */
+    transform: translateY(-5px); 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15); 
 }
 
-/* --- GAYA UNTUK THUMBNAIL (GAMBAR) --- */
 .project-thumbnail {
     width: 100%;
-    aspect-ratio: 16 / 9; /* KUNCI: Membuat rasio 16:9 seperti YouTube */
+    aspect-ratio: 16 / 9;
     overflow: hidden;
 }
 
 .project-thumbnail img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Agar gambar memenuhi kotak tanpa gepeng */
-    transition: transform 0.3s ease; /* Transisi untuk efek hover nanti */
+    object-fit: cover; 
+    transition: transform 0.3s ease; 
 }
 
-/* Efek zoom tipis pada gambar saat kartu di-hover */
 .project-card:hover .project-thumbnail img {
-    transform: scale(1.05); /* Gambar sedikit membesar di dalam kotak */
+    transform: scale(1.05); 
 }
 
-/* --- GAYA UNTUK JUDUL PROYEK --- */
 .project-info {
     padding: 15px;
-    text-align: left; /* Teks judul rata kiri seperti YouTube */
+    text-align: left;
 }
 
 .project-title {
@@ -179,28 +157,26 @@ h1 {
     font-weight: 600;
     line-height: 1.4;
     
-    /* --- PERBAIKAN DI SINI --- */
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2; /* Untuk browser sekarang (Chrome/Safari) */
-    line-clamp: 2;         /* Properti standar (Untuk masa depan & kompatibilitas) */
+    -webkit-line-clamp: 2; 
+    line-clamp: 2; 
     overflow: hidden;
 }
 
-/* Background hitam transparan di belakang modal */
+
 .modal {
-    display: none; /* Sembunyi dulu */
+    display: none; 
     position: fixed;
-    z-index: 100; /* Biar di atas segalanya */
+    z-index: 100; 
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Efek gelap di belakang */
-    backdrop-filter: blur(5px); /* Efek blur biar estetik */
+    background-color: rgba(0, 0, 0, 0.7); 
+    backdrop-filter: blur(5px); 
 }
 
-/* Kotak putih modalnya */
 .modal-content {
     background-color: white;
     margin: 10% auto;
@@ -213,7 +189,6 @@ h1 {
     text-align: left;
 }
 
-/* Tombol close (X) */
 .close-button {
     position: absolute;
     right: 20px;
