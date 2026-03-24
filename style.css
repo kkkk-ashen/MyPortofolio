@@ -201,3 +201,10 @@ h1 {
 .close-button:hover {
     color: black;
 }
+
+footer {
+    background: #0f172a;
+    color: white;
+    padding: 50px 0;
+    text-align: center;
+}
