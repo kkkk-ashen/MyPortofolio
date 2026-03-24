@@ -1,0 +1,303 @@
+body {
+    margin: 0;
+    padding: 0;
+    
+    /* --- WARNA DASAR (Jaga-jaga kalau gambar gagal dimuat) --- */
+    background-color: #c9001a; /* Hitam khas P5 */
+    
+    /* --- KUNCI: GAMBAR BACKGROUND --- */
+    background-image: url('city.png'); /* Ganti dengan nama filemu */
+    
+    /* --- PENGATURAN AGAR PAS --- */
+    background-size: 2000;      /* Gambar menutupi seluruh layar tanpa gepeng */
+    background-position: center 20%; /* Gambar tetap di tengah saat di-resize */
+    background-repeat: no-repeat; /* Gambar tidak mengulang (tile) */
+    background-attachment: fixed; /* Opsional: Gambar diam saat konten di-scroll (keren!) */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.namejpeg {
+    width: 490px;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+}
+
+.header-container {
+    position: relative; /* KUNCI: Biarkan anak-anaknya bisa diposisikan secara absolut */
+    width: 100%;
+    text-align: center; /* Membantu memposisikan foto ke tengah */
+    margin-bottom: 70px; /* Memberi ruang di bawah karena foto menonjol keluar */
+    position: relative;
+}
+
+.about-wrapper {
+    position: relative;
+    width: 100%; 
+    max-width: 900px;
+    margin: 40px auto; /* Memberi jarak agar pin tidak tabrakan dengan nama di atas */
+    display: block;
+}
+
+.p5-pin-image {
+    position: absolute;
+    
+    /* Ganti 'right' jadi 'left' biar dia pegangan ke sisi kiri kotak 
+       atau tetap 'right' tapi pastikan angkanya 0 atau minus tipis */
+    top: -30px; 
+    right: 40px; /* Coba angka minus kecil biar dia 'numpang' di pojok kanan */
+    
+    width: 80px; /* Besarin dikit biar P5 banget */
+    height: auto;
+    z-index: 100; /* Pastikan paling atas */
+    
+    filter: drop-shadow(5px 5px 0 #000);
+    pointer-events: none;
+}
+
+/* Perbaikan sedikit untuk container agar rotasinya asik */
+.about-container {
+    margin: 0; /* Margin pindah ke wrapper */
+    width: 100%; /* Memenuhi wrapper */
+    background: #000000;
+    transform: rotate(-1deg); /* Miring sedikit biar kontras sama pin */
+    box-shadow: 10px 10px 0 #dc143c; /* Shadow merah crimson tegas */
+}
+
+.title {
+    margin-top: 85px; /* Memberi ruang agar nama tidak tertutup foto profil */
+    margin-bottom: 10px;
+}
+
+/* --- GAYA UNTUK BANNER --- */
+.banner {
+    width: 100%;
+    height: 200px; /* Tentukan tinggi banner. Sesuaikan selera (misalnya 250px atau 350px) */
+    background-image: url('kisah.jpg'); /* GANTI DENGAN NAMA FILE BANNERMU */
+    background-size: cover; /* Agar gambar banner menutupi seluruh area tanpa gepeng */
+    background-position: center; /* Agar bagian tengah gambar banner yang terlihat */
+    background-repeat: no-repeat;
+}
+
+/* Container untuk About Me agar rapi di tengah */
+.about-container {
+    background: rgb(0, 0, 0);
+    padding: 30px 5%; /* Padding samping pakai % agar ikut fleksibel */
+    border-radius: 15px;
+    
+    /* KUNCI UTAMA DI SINI */
+    width: 80%;       /* Kotak akan selalu memakan 85% lebar layar */
+    max-width: 900px; /* Batas maksimal biar gak kelebaran di monitor gede */
+    min-width: 300px; /* Batas minimal biar gak kekecilan di HP */
+    
+    margin: 20px auto; /* Tetap di tengah */
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    
+    /* Transisi halus saat window di-resize */
+    transition: width 0.3s ease; 
+}
+
+.stats-title {
+    color: #dfdfdf;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #3498db; /* Garis bawah hiasan */
+    display: inline-block;
+}
+
+.stats-text {
+    line-height: 1.6;
+    color: #bdbdbd;
+    font-size: 1.1rem; /* Gunakan rem agar ukuran font lebih proporsional */
+    margin-bottom: 15px;
+    word-wrap: break-word; /* Mencegah teks keluar kotak */
+}
+
+/* --- GAYA UNTUK SEKSI PROYEK --- */
+.projects-section {
+    width: 90%; /* Fleksibel mengikuti lebar layar */
+    max-width: 1200px; /* Batas maksimal di monitor besar */
+    margin: 50px auto; /* Jarak atas/bawah dan posisi tengah */
+    text-align: center;
+}
+
+.section-title {
+    font-size: 32px;
+    color: #ffffff;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- KUNCI: CSS GRID UNTUK LAYOUT thumbnail --- */
+.projects-grid {
+    display: grid;
+    /* Membuat kolom otomatis yang fleksibel (minimal 300px per kotak) */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px; /* Jarak antar kotak proyek */
+}
+
+/* --- GAYA UNTUK KOTAK PROYEK (KARTU) --- */
+.project-card {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden; /* Agar sudut gambar ikut melengkung */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08); /* Efek depth tipis */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer; /* Mengubah kursor jadi tangan (indikator bisa ditekan) */
+}
+
+/* Efek hover agar kotak menonjol saat didekati mouse */
+.project-card:hover {
+    transform: translateY(-5px); /* Kotak sedikit terangkat */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15); /* Bayangan jadi lebih kuat */
+}
+
+/* --- GAYA UNTUK THUMBNAIL (GAMBAR) --- */
+.project-thumbnail {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* KUNCI: Membuat rasio 16:9 seperti YouTube */
+    overflow: hidden;
+}
+
+.project-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Agar gambar memenuhi kotak tanpa gepeng */
+    transition: transform 0.3s ease; /* Transisi untuk efek hover nanti */
+}
+
+/* Efek zoom tipis pada gambar saat kartu di-hover */
+.project-card:hover .project-thumbnail img {
+    transform: scale(1.05); /* Gambar sedikit membesar di dalam kotak */
+}
+
+/* --- GAYA UNTUK JUDUL PROYEK --- */
+.project-info {
+    padding: 15px;
+    text-align: left; /* Teks judul rata kiri seperti YouTube */
+}
+
+.project-title {
+    font-size: 18px;
+    color: #333;
+    margin: 0;
+    font-weight: 600;
+    line-height: 1.4;
+    
+    /* --- PERBAIKAN DI SINI --- */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* Untuk browser sekarang (Chrome/Safari) */
+    line-clamp: 2;         /* Properti standar (Untuk masa depan & kompatibilitas) */
+    overflow: hidden;
+}
+
+/* Background hitam transparan di belakang modal */
+.modal {
+    display: none; /* Sembunyi dulu */
+    position: fixed;
+    z-index: 100; /* Biar di atas segalanya */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Efek gelap di belakang */
+    backdrop-filter: blur(5px); /* Efek blur biar estetik */
+}
+
+/* Kotak putih modalnya */
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 15px;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+    box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+    text-align: left;
+}
+
+/* Tombol close (X) */
+.close-button {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #aaa;
+}
+
+.close-button:hover {
+    color: black;
+}
+
+footer {
+    background: #000000;
+    color: white;
+    padding: 50px 0;
+    text-align: center;
+}
+
+/* 1. Wrapper P5 (Sama kayak sebelumnya, kasih rotasi miring total) */
+.p5-photo-wrapper {
+    position: absolute;
+    bottom: -90px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-5deg); /* Kunci P5: Miringin total! */
+    width: 250px;
+    height: 250px;
+    z-index: 20;
+}
+
+/* 2. Foto Profil (Sama kayak sebelumnya) */
+.foto-profil-p5 {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 100%;
+    
+    position: absolute; 
+    top: 80px;      
+    left: 50%;          
+    transform: translateX(-50%); 
+    
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.3);
+    
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 10;       
+}
+
+/* Biar tetap bisa membesar saat disentuh mouse tanpa merusak posisi tengah */
+.foto-profil-p5:hover {
+    transform: translateX(-50%) scale(1.05);
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* 3. POSISIKAN GAMBAR BUBBLE PNG (Kunci Estetik P5) */
+.p5-bubble-image {
+    position: absolute;
+    
+    /* --- ATUR POSISI DI SINI --- */
+    top: 150px;    /* Sesuaikan tinggi/rendahnya */
+    right: -550px;   /* Geser ke kanan luar foto profil */
+    
+    /* --- ATUR UKURAN DI SINI --- */
+    width: 600px;    /* Sesuaikan besar/kecilnya gambar bubble mu */
+    height: auto;    /* Biar proporsional */
+    
+    z-index: 5;      /* Di belakang foto profil */
+    
+    /* --- KUNCI P5: ROTASI TAMBAHAN --- */
+    /* Kasih rotasi sedikit berbeda agar bubble miring sendiri */
+    transform: rotate(10deg); 
+    
+    /* Efek depth tipis */
+    filter: drop-shadow(5px 5px 0 #000); /* Bayangan hitam tegas khas P5 */
+}
