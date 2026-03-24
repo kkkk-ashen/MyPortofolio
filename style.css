@@ -356,4 +356,8 @@ footer {
     .projects-grid {
         grid-template-columns: 1fr;
     }
+
+    .banner {
+        width: auto;
+    }
 }
