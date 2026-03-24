@@ -358,6 +358,6 @@ footer {
     }
 
     .banner {
-        width: auto;
+        width: fill;
     }
 }
