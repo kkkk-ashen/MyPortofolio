@@ -7,76 +7,74 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>    
-    <div class="header-container">
-        <div class="banner">
+    <main class="content-push">
+        
+        <div class="header-container">
+            <div class="banner"></div>
+            <div class="p5-photo-wrapper">
+                <img src="photoport.jpeg" alt="Foto Profil Guna" class="foto-profil-p5">
+                <img src="bubbleTextr.png" alt="P5 Text Bubble" class="p5-bubble-image">
             </div>
-        <div class="p5-photo-wrapper">
-            <img src="photoport.jpeg" alt="Foto Profil Guna" class="foto-profil-p5">
-            
-            <img src="bubbleTextr.png" alt="P5 Text Bubble" class="p5-bubble-image">
         </div>
-    </div>
-    
-    <img src="myName.png" alt="I Komang Ada Guna Artha" class="namejpeg">
-    
-    <div class="about-wrapper">
-        <img src="dagger.png" alt="P5 Pin" class="p5-pin-image">
-
-        <div class="about-container">
-            <h2 class="stats-title">About Me</h2>
-            <p class="stats-text">
-                Hello! I'm Ada Guna, a 10th-grade student majoring in Software and Game Development with a strong interest in game and software development.
-                I'm currently exploring programming logic in C++ and building interactive worlds using the Godot Engine and Unity.
-            </p>
-            <p class="stats-text">
-                Besides coding, I also enjoy visual processing through video editing. I believe that a great game is born from the combination of clean code and a strong story.
-            </p>
+        
+        <img src="myName.png" alt="I Komang Ada Guna Artha" class="namejpeg">
+        
+        <div class="about-wrapper">
+            <img src="dagger.png" alt="P5 Pin" class="p5-pin-image">
+            <div class="about-container">
+                <h2 class="stats-title">About Me</h2>
+                <p class="stats-text">
+                    Hello! I'm Ada Guna, a 10th-grade student majoring in Software and Game Development with a strong interest in game and software development.
+                    I'm currently exploring programming logic in C++ and building interactive worlds using the Godot Engine and Unity.
+                </p>
+                <p class="stats-text">
+                    Besides coding, I also enjoy visual processing through video editing. I believe that a great game is born from the combination of clean code and a strong story.
+                </p>
+            </div>
         </div>
-    </div>
-    
-    <div class="tools-section">
-        <h2 class="tools-title">EQUIPPED TOOLS</h2>
-        <div class="tools-grid">
-            <div class="tool-item" data-info="3D World Building">Unity</div>
-            <div class="tool-item" data-info="Advanced Game Logic">Godot Engine</div>
-            <div class="tool-item" data-info="Web Development">VSCode</div>
-            <div class="tool-item" data-info="For Photo Editing">Photoshop</div>
-            <div class="tool-item" data-info="For Color Grading">DaVinci Resolve</div>
-            <div class="tool-item" data-info="For Video Editing">Premiere Pro</div>
-            <div class="tool-item" data-info="Main Environment">Windows</div>
+        
+        <div class="tools-section">
+            <h2 class="tools-title">EQUIPPED TOOLS</h2>
+            <div class="tools-grid">
+                <div class="tool-item" data-info="3D World Building">Unity</div>
+                <div class="tool-item" data-info="Advanced Game Logic">Godot Engine</div>
+                <div class="tool-item" data-info="Web Development">VSCode</div>
+                <div class="tool-item" data-info="For Photo Editing">Photoshop</div>
+                <div class="tool-item" data-info="For Color Grading">DaVinci Resolve</div>
+                <div class="tool-item" data-info="For Video Editing">Premiere Pro</div>
+                <div class="tool-item" data-info="Main Environment">Windows</div>
+            </div>
         </div>
-    </div>
 
-    <div class="projects-section">
-        <h2 class="section-title">Current Projects</h2>
-
-        <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-thumbnail">
-                    <img src="projectsurvival.png" alt="Thumbnail Proyek 1">
+        <div class="projects-section">
+            <h2 class="section-title">Current Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-thumbnail">
+                        <img src="projectsurvival.png" alt="Thumbnail Proyek 1">
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">HIBA</h3>
+                    </div>
                 </div>
-                <div class="project-info">
-                    <h3 class="project-title">HIBA</h3>
-                </div>
             </div>
+        </div>
+
+        <div id="projectModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2 id="modalTitle">Judul Proyek</h2>
+                <p id="modalDescription">Deskripsi lengkap proyek akan muncul di sini.</p>
             </div>
-    </div>
+        </div>
 
-    <div id="projectModal" class="modal">
-    <div class="modal-content">
-        <span class="close-button">&times;</span>
-        <h2 id="modalTitle">Judul Proyek</h2>
-        <p id="modalDescription">Deskripsi lengkap proyek akan muncul di sini.</p>
-    </div>
-
-    </div>
-
+    </main> 
     <footer id="contact">
         <h2>Contact Me</h2>
         <p>Email: adaguna28@gmail.com | Location: Bali, Indonesia</p>
         <p>&copy; 2026 Ada-Guna. All Rights Reserved.</p>
     </footer>
 
-        <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
