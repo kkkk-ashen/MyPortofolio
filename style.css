@@ -306,7 +306,7 @@ footer {
 @media (max-width: 600px) {
     body {
         /* Kembalikan ukuran background biar gak ngeblur di HP */
-        background-size: cover; 
+        background-size: 2000px; 
         overflow-x: hidden; /* WAJIB: Biar bubble raksasa gak bikin scroll samping */
     }
 
@@ -319,7 +319,7 @@ footer {
     /* 2. Jinakkan Bubble Raksasa di HP */
     .p5-bubble-image {
         width: 250px;   /* Dari 600px kita ciutkan jadi 250px */
-        right: -140px;  /* Dari -550px kita tarik mendekat ke foto */
+        right: -210px;  /* Dari -550px kita tarik mendekat ke foto */
         top: 100px;     /* Sesuaikan tingginya */
     }
 
