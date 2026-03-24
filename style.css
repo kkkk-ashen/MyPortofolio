@@ -301,3 +301,59 @@ footer {
     /* Efek depth tipis */
     filter: drop-shadow(5px 5px 0 #000); /* Bayangan hitam tegas khas P5 */
 }
+
+/* --- FIX KHUSUS HP (RESPONSIVE MODE) --- */
+@media (max-width: 600px) {
+    body {
+        /* Kembalikan ukuran background biar gak ngeblur di HP */
+        background-size: cover; 
+        overflow-x: hidden; /* WAJIB: Biar bubble raksasa gak bikin scroll samping */
+    }
+
+    /* 1. Nama PNG sesuaikan lebar layar HP */
+    .namejpeg {
+        width: 90%; 
+        margin-top: 50px;
+    }
+
+    /* 2. Jinakkan Bubble Raksasa di HP */
+    .p5-bubble-image {
+        width: 250px;   /* Dari 600px kita ciutkan jadi 250px */
+        right: -140px;  /* Dari -550px kita tarik mendekat ke foto */
+        top: 100px;     /* Sesuaikan tingginya */
+    }
+
+    /* 3. Sesuaikan Wrapper Foto */
+    .p5-photo-wrapper {
+        width: 180px;
+        height: 180px;
+        bottom: -60px;
+    }
+
+    .foto-profil-p5 {
+        width: 110px;
+        height: 110px;
+        top: 40px;
+    }
+
+    /* 4. About Me & Pin agar tidak menumpuk parah */
+    .about-wrapper {
+        width: 92%;
+        margin-top: 100px; /* Kasih ruang buat foto di atasnya */
+    }
+
+    .p5-pin-image {
+        width: 50px; /* Kecilin dikit pin-nya */
+        right: 10px; /* Tarik masuk biar gak keluar layar HP */
+        top: -20px;
+    }
+
+    .about-container {
+        padding: 50px 20px 20px 20px; /* Tambah padding atas buat zona aman pin */
+    }
+
+    /* 5. Project Card jadi satu deret saja */
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+}
