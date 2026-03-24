@@ -308,6 +308,7 @@ footer {
         /* Kembalikan ukuran background biar gak ngeblur di HP */
         background-size: 2000px; 
         overflow-x: hidden; /* WAJIB: Biar bubble raksasa gak bikin scroll samping */
+        background-position: center 10%;
     }
 
     /* 1. Nama PNG sesuaikan lebar layar HP */
@@ -355,9 +356,5 @@ footer {
     /* 5. Project Card jadi satu deret saja */
     .projects-grid {
         grid-template-columns: 1fr;
-    }
-
-    .banner {
-        width: fill;
     }
 }
