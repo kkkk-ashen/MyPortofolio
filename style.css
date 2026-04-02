@@ -3,6 +3,11 @@ html, body {
     margin: 0;
 }
 
+html, body, .content-push, .main-container {
+    -ms-overflow-style: none;  
+    scrollbar-width: none;    
+}
+
 body {
     background-color: #c9001a;
     background-image: url('city.png');
@@ -14,6 +19,13 @@ body {
     display: block; 
     overflow-x: hidden;
     overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+
+body::-webkit-scrollbar {
+    display: none;
 }
 
 .content-push {
@@ -261,6 +273,10 @@ footer {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(5px);
+}
+
+.modal::-webkit-scrollbar {
+    display: none;
 }
 
 .modal-content {
