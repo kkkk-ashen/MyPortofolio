@@ -1,5 +1,5 @@
 html, body {
-    height: 100%;
+    height: auto;
     margin: 0;
 }
 
@@ -11,9 +11,9 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    display: block; 
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .content-push {
@@ -184,6 +184,72 @@ footer {
     line-clamp: 2;
     overflow: hidden;
 }
+
+.scene {
+    position: relative; 
+    margin: 100px auto; 
+    width: 200px;
+    height: 200px;
+    perspective: 1000px;
+    cursor: grab;
+    z-index: 5; 
+    top: 0;
+    left: 0;
+    transform: none; 
+}
+
+.scene:active {
+    cursor: grabbing;
+}
+
+.content-push {
+    width: 100%;
+    display: block; 
+}
+
+.face {
+    user-select: none;
+}
+
+.cube {
+    width: 100%;
+    height: 100%;
+    position: absolute; 
+    transform-style: preserve-3d;
+    display: flex;
+    align-items: center;
+}
+
+.face {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border: 3px solid #dc143c; 
+    background: rgba(0, 0, 0, 0.8); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
+    
+    box-shadow: 0 0 15px rgba(220, 20, 60, 0.5);
+    
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.face img {
+    max-width: 100%;  
+    max-height: 100%;
+    object-fit: contain; 
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+}
+
+.front  { transform: rotateY(  0deg) translateZ(100px); }
+.back   { transform: rotateY(180deg) translateZ(100px); }
+.right  { transform: rotateY( 90deg) translateZ(100px); }
+.left   { transform: rotateY(-90deg) translateZ(100px); }
+.top    { transform: rotateX( 90deg) translateZ(100px); }
+.bottom { transform: rotateX(-90deg) translateZ(100px); }
 
 .modal {
     display: none;
