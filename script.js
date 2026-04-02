@@ -20,7 +20,9 @@ const startDragging = (e) => {
 const moveDragging = (e) => {
     if (!isDragging) return;
 
-    if (e.touches) e.preventDefault(); 
+    if (e.touches && e.currentTarget === scene) {
+        e.preventDefault(); 
+    }
 
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
@@ -45,9 +47,9 @@ window.addEventListener('mousedown', startDragging);
 window.addEventListener('mousemove', moveDragging);
 window.addEventListener('mouseup', stopDragging);
 
-window.addEventListener('touchstart', startDragging, { passive: false });
-window.addEventListener('touchmove', moveDragging, { passive: false });
-window.addEventListener('touchend', stopDragging);
+scene.addEventListener('touchstart', startDragging, { passive: false });
+scene.addEventListener('touchmove', moveDragging, { passive: false });
+scene.addEventListener('touchend', stopDragging);
 
 function updateRotation() {
     cube.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
