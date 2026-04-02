@@ -1,68 +1,63 @@
-const projectData = {
-    "HIBA": "HIBA is a 3D Roguelike Game inspired by <b>Muck</b>, Where you born with an axe and start fight againts enemies such as zombie, slime and much more so you get exp from it to get leveled up, defeat the boss and eventually beat the game. well thats the plan though, for now i only done making procedural generations(meaning: you would not get the same world as you play.), and spawning a pretty boring grass and trees and attacking mechanics."
-};
-
-const modal = document.getElementById("projectModal");
-const modalTitle = document.getElementById("modalTitle");
-const modalDesc = document.getElementById("modalDescription");
-const closeBtn = document.querySelector(".close-button");
-const cards = document.querySelectorAll(".project-card");
-
-cards.forEach(card => {
-    card.addEventListener("click", function() {
-        const title = this.querySelector(".project-title").innerText;
-        
-        modalTitle.innerText = title + " - Roguelike Project";
-        modalDesc.innerHTML = projectData[title] || "Detail proyek belum ditambahkan.";
-        
-        modal.style.display = "block";
-    });
-});
-
-closeBtn.onclick = function() {
-    modal.style.display = "none";
-}
-
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-
 const cube = document.querySelector('.cube');
 const scene = document.querySelector('.scene');
 
 let isDragging = false;
-let previousMouseX = 0;
-let previousMouseY = 0;
+let previousX = 0;
+let previousY = 0;
 
+// Koordinat rotasi awal
 let rotateX = -30;
 let rotateY = 45;
 
-window.addEventListener('mousedown', (e) => {
+// --- FUNGSI START (Klik atau Sentuh) ---
+const startDragging = (e) => {
     isDragging = true;
-    previousMouseX = e.clientX;
-    previousMouseY = e.clientY;
-});
+    // Cek apakah itu sentuhan (touch) atau klik mouse
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    
+    previousX = clientX;
+    previousY = clientY;
+};
 
-window.addEventListener('mousemove', (e) => {
+// --- FUNGSI MOVE (Geser Mouse atau Jari) ---
+const moveDragging = (e) => {
     if (!isDragging) return;
 
-    const deltaX = e.clientX - previousMouseX;
-    const deltaY = e.clientY - previousMouseY;
+    // Biar layar HP nggak ikut scroll pas kita muter kotak
+    if (e.touches) e.preventDefault(); 
+
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+    const deltaX = clientX - previousX;
+    const deltaY = clientY - previousY;
 
     rotateY += deltaX * 0.5;
     rotateX -= deltaY * 0.5;
 
     updateRotation();
 
-    previousMouseX = e.clientX;
-    previousMouseY = e.clientY;
-});
+    previousX = clientX;
+    previousY = clientY;
+};
 
-window.addEventListener('mouseup', () => {
+// --- FUNGSI STOP ---
+const stopDragging = () => {
     isDragging = false;
-});
+};
+
+// --- PASANG EVENT LISTENERS ---
+
+// Mouse Events
+window.addEventListener('mousedown', startDragging);
+window.addEventListener('mousemove', moveDragging);
+window.addEventListener('mouseup', stopDragging);
+
+// Touch Events (Untuk HP)
+window.addEventListener('touchstart', startDragging, { passive: false });
+window.addEventListener('touchmove', moveDragging, { passive: false });
+window.addEventListener('touchend', stopDragging);
 
 function updateRotation() {
     cube.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
