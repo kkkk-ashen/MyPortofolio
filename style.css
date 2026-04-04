@@ -66,6 +66,28 @@ html {
     scroll-behavior: smooth;
 }
 
+.p5-menu-toggle {
+    display: none; 
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 10000;
+    cursor: pointer;
+    background: #dc143c;
+    padding: 10px;
+    border: 2px solid #fff;
+    box-shadow: 4px 4px 0 #000;
+}
+
+.p5-menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: #fff;
+    margin: 5px 0;
+    transition: 0.3s;
+}
+
 .content-push {
     flex: 1 0 auto;
 }
@@ -541,10 +563,27 @@ footer {
 }
 
 @media (max-width: 600px) {
-    .p5-navbar {
-        margin-top: 120px;
+    .p5-menu-toggle {
+        display: block !important;
     }
-    
+
+    .p5-navbar {
+        display: flex !important; 
+        position: fixed;
+        left: -350px !important; 
+        top: 80px; 
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        z-index: 9999;
+    }
+
+    .p5-navbar.active {
+        left: 20px !important; 
+    }
+
+    .p5-menu-toggle.active span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
+    .p5-menu-toggle.active span:nth-child(2) { opacity: 0; }
+    .p5-menu-toggle.active span:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
+
     body {
         background-size: 2000px; 
         overflow-x: hidden;
