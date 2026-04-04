@@ -138,3 +138,24 @@ document.querySelectorAll('.tool-item').forEach(tool => {
         playClickSfx();
     });
 });
+
+const menuToggle = document.getElementById('menuToggle');
+const p5Navbar = document.getElementById('p5Navbar');
+const navLinks = document.querySelectorAll('.nav-item a');
+
+if (menuToggle) {
+    menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        p5Navbar.classList.toggle('active');
+        playClickSfx(); 
+    });
+}
+
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+            menuToggle.classList.remove('active');
+            p5Navbar.classList.remove('active');
+        }
+    });
+});
