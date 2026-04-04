@@ -1,6 +1,14 @@
 html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+    position: relative;
     height: auto;
     margin: 0;
+}
+
+.content-push {
+    width: 100%;
+    overflow-x: hidden;
 }
 
 html, body, .content-push, .main-container {
@@ -563,6 +571,16 @@ footer {
 }
 
 @media (max-width: 600px) {
+    .header-container {
+        overflow: hidden; 
+        width: 100%;
+    }
+
+    .p5-bubble-image {
+        right: -150px; 
+        max-width: 200px;
+    }
+
     .p5-menu-toggle {
         display: block !important;
         margin-top: 120px;
