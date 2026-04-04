@@ -1,10 +1,23 @@
-// ==========================================
-// 1. KODE MODAL PROJECT (JANGAN DIHAPUS)
-// ==========================================
+const playClickSfx = () => {
+    const clickSfx = document.getElementById("p5ClickSfx");
+    if (clickSfx) {
+        clickSfx.volume = 0.3; 
+
+        clickSfx.currentTime = 0;
+        let playPromise = clickSfx.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                console.log("Sfx tertunda: Klik layar dulu!");
+            });
+        }
+    }
+};
+
 const projectData = {
     "HIBA": {
         title: "HIBA - Survival Roguelike",
-        image: "projectroguelike.png", // Ganti dengan nama file screenshot/logo kamu
+        image: "projectroguelike.png",
         desc: "HIBA is a 3D Roguelike Game inspired by <b>Muck</b>, Where you born with an axe and start fight againts enemies such as zombie, slime and much more so you get exp from it to get leveled up, defeat the boss and eventually beat the game. well thats the plan though, for now i only done making procedural generations(meaning: you would not get the same world as you play.), and spawning a pretty boring grass and trees and attacking mechanics."
     }
 };
@@ -12,7 +25,7 @@ const projectData = {
 const modal = document.getElementById("projectModal");
 const modalTitle = document.getElementById("modalTitle");
 const modalDesc = document.getElementById("modalDescription");
-const modalImg = document.getElementById("modalImg"); // Ambil elemen img modal
+const modalImg = document.getElementById("modalImg");
 const closeBtn = document.querySelector(".close-button");
 const cards = document.querySelectorAll(".project-card");
 
@@ -24,12 +37,12 @@ cards.forEach(card => {
         if (data) {
             modalTitle.innerText = data.title;
             modalDesc.innerHTML = data.desc;
-            modalImg.src = data.image; // Ganti gambar modal sesuai data
+            modalImg.src = data.image;
             modal.style.display = "block";
         } else {
             modalTitle.innerText = title;
             modalDesc.innerText = "Detail proyek belum ditambahkan.";
-            modalImg.src = ""; // Kosongkan kalau gak ada gambar
+            modalImg.src = "";
             modal.style.display = "block";
         }
     });
@@ -43,9 +56,6 @@ window.onclick = (event) => {
     if (event.target == modal) modal.style.display = "none";
 };
 
-// ==========================================
-// 2. KODE ROTASI KUBUS (INTERAKTIF)
-// ==========================================
 const cube = document.querySelector('.cube');
 const scene = document.querySelector('.scene');
 
@@ -66,8 +76,6 @@ const startDragging = (e) => {
 const moveDragging = (e) => {
     if (!isDragging) return;
 
-    // KUNCI: Cek apakah jari/mouse nempel di area scene (kotak)
-    // Biar gak ganggu klik tombol lain atau scroll
     if (e.touches && (e.target.closest('.scene') || e.target.closest('.cube'))) {
         e.preventDefault(); 
     }
@@ -91,12 +99,10 @@ const stopDragging = () => {
     isDragging = false;
 };
 
-// Pasang Event di window biar drag-nya luas
 window.addEventListener('mousedown', startDragging);
 window.addEventListener('mousemove', moveDragging);
 window.addEventListener('mouseup', stopDragging);
 
-// Pasang di scene/window dengan hati-hati untuk mobile
 window.addEventListener('touchstart', startDragging, { passive: false });
 window.addEventListener('touchmove', moveDragging, { passive: false });
 window.addEventListener('touchend', stopDragging);
@@ -108,3 +114,27 @@ function updateRotation() {
 }
 
 updateRotation();
+
+cards.forEach(card => {
+    card.addEventListener("click", () => {
+        playClickSfx();
+    });
+});
+
+if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+        playClickSfx();
+    });
+}
+
+document.querySelectorAll('.nav-item').forEach(nav => {
+    nav.addEventListener('click', () => {
+        playClickSfx();
+    });
+});
+
+document.querySelectorAll('.tool-item').forEach(tool => {
+    tool.addEventListener('mouseenter', () => {
+        playClickSfx();
+    });
+});
