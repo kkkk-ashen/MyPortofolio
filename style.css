@@ -541,6 +541,10 @@ footer {
 }
 
 @media (max-width: 600px) {
+    .p5-navbar {
+        margin-top: 100px;
+    }
+    
     body {
         background-size: 2000px; 
         overflow-x: hidden;
