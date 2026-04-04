@@ -615,9 +615,9 @@ footer {
     }
 
     .p5-bubble-image {
-        width: 250px;
-        right: -210px;
-        top: 100px;
+        width: 290px;
+        right: -160px;
+        top: 50px;
     }
 
     .p5-photo-wrapper {
@@ -629,7 +629,7 @@ footer {
     .foto-profil-p5 {
         width: 110px;
         height: 110px;
-        top: 40px;
+        top:-20px;
     }
 
     .about-wrapper {
