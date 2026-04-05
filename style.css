@@ -677,6 +677,10 @@ footer {
 }
 
 @media (max-width: 600px) {
+    .p5-location-tag {
+        opacity: 0%;
+    }
+    
     .header-container {
         overflow: hidden; 
         width: 100%;
