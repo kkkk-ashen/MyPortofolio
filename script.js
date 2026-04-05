@@ -159,3 +159,57 @@ navLinks.forEach(link => {
         }
     });
 });
+
+const locationName = document.getElementById('currentLocation');
+const sections = document.querySelectorAll('div[id], section[id], footer[id]');
+
+const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -70% 0px', 
+    threshold: 0
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            
+            const nameMap = {
+                'profile': 'PROFILE',
+                'tools': 'EQUIPPED_TOOLS',
+                'projects': 'CURRENT_PROJECTS',
+                'contact': 'CONTACT_INFO'
+            };
+
+            if (nameMap[id]) {
+                locationName.innerText = nameMap[id];
+                
+                locationName.style.opacity = "0";
+                setTimeout(() => { locationName.style.opacity = "1"; }, 50);
+            }
+        }
+    });
+}, observerOptions);
+
+sections.forEach(section => observer.observe(section));
+
+const dots = document.querySelectorAll('.nav-dot');
+const observeSections = document.querySelectorAll('#profile, #tools, #projects');
+
+const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const currentId = entry.target.getAttribute('id');
+            
+            dots.forEach(dot => {
+                if (dot.getAttribute('data-target') === currentId) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+    });
+}, { threshold: 0.5 }); 
+
+observeSections.forEach(s => navObserver.observe(s));
