@@ -681,6 +681,18 @@ footer {
     transform: translateX(-50%) translateY(-5px) scale(1);
 }
 
+img {
+    -webkit-user-drag: none;    
+    -khtml-user-drag: none;
+    -moz-user-drag: none;       
+    -o-user-drag: none;
+    user-drag: none;            
+    
+    user-select: none;          
+    -webkit-user-select: none;
+    pointer-events: auto;       
+}
+
 @media (max-width: 600px) {
     .p5-location-tag {
         opacity: 0%;
