@@ -194,25 +194,30 @@ const observer = new IntersectionObserver((entries) => {
 sections.forEach(section => observer.observe(section));
 
 const dots = document.querySelectorAll('.nav-dot');
-const observeSections = document.querySelectorAll('#profile, #tools, #projects');
+const sectionList = ['profile', 'tools', 'projects'];
 
-const navObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const currentId = entry.target.getAttribute('id');
+window.addEventListener('scroll', () => {
+    let current = "";
+
+    sectionList.forEach((id) => {
+        const section = document.getElementById(id);
+        if (section) {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
             
-            dots.forEach(dot => {
-                if (dot.getAttribute('data-target') === currentId) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
+            if (window.scrollY >= (sectionTop - 200)) {
+                current = id;
+            }
         }
     });
-}, { threshold: 0.5 }); 
 
-observeSections.forEach(s => navObserver.observe(s));
+    dots.forEach((dot) => {
+        dot.classList.remove('active');
+        if (dot.getAttribute('data-target') === current) {
+            dot.classList.add('active');
+        }
+    });
+});
 
 document.querySelectorAll('.tool-item').forEach(tool => {
     tool.style.cursor = "pointer";
