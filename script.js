@@ -14,6 +14,48 @@ const playClickSfx = () => {
     }
 };
 
+const bubbleTextElement = document.getElementById('bubbleTypingText');
+const phrases = [
+    "Hi, nice to meet you!",
+    "I'm Ada Guna",
+    "Welcome to my palace...",
+    "Ready to see my projects?"
+];
+
+let phraseIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+let typeSpeed = 100;
+
+function type() {
+    const currentPhrase = phrases[phraseIndex];
+    
+    if (isDeleting) {
+        bubbleTextElement.textContent = currentPhrase.substring(0, charIndex - 1);
+        charIndex--;
+        typeSpeed = 50;
+    } else {
+        bubbleTextElement.textContent = currentPhrase.substring(0, charIndex + 1);
+        charIndex++;
+        typeSpeed = 100;
+    }
+
+    if (!isDeleting && charIndex === currentPhrase.length) {
+        typeSpeed = 2000; 
+        isDeleting = true;
+    } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        typeSpeed = 500;
+    }
+
+    setTimeout(type, typeSpeed);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    type();
+});
+
 const projectData = {
     "HIBA": {
         title: "HIBA - Survival Roguelike",
@@ -255,17 +297,5 @@ document.querySelectorAll('.tool-item').forEach(tool => {
                 window.open(url, '_blank'); 
             }, 150); 
         }
-    });
-});
-
-document.querySelectorAll('img').forEach(img => {
-    img.addEventListener('dragstart', (e) => {
-        e.preventDefault();
-        return false;
-    });
-
-    img.addEventListener('contextmenu', (e) => {
-        e.preventDefault();
-        return false;
     });
 });
