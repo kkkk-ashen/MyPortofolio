@@ -198,14 +198,15 @@ const sectionList = ['profile', 'tools', 'projects'];
 
 window.addEventListener('scroll', () => {
     let current = "";
+    
+    const checkpoint = window.innerHeight / 3; 
 
     sectionList.forEach((id) => {
         const section = document.getElementById(id);
         if (section) {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
+            const rect = section.getBoundingClientRect();
             
-            if (window.scrollY >= (sectionTop - 200)) {
+            if (rect.top <= checkpoint) {
                 current = id;
             }
         }
@@ -215,22 +216,6 @@ window.addEventListener('scroll', () => {
         dot.classList.remove('active');
         if (dot.getAttribute('data-target') === current) {
             dot.classList.add('active');
-        }
-    });
-});
-
-document.querySelectorAll('.tool-item').forEach(tool => {
-    tool.style.cursor = "pointer";
-
-    tool.addEventListener('click', function() {
-        const url = this.getAttribute('data-url');
-        
-        if (url) {
-            if (typeof playClickSfx === "function") playClickSfx();
-
-            setTimeout(() => {
-                window.open(url, '_blank');
-            }, 150); 
         }
     });
 });
