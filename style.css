@@ -620,7 +620,7 @@ footer {
     font-style: normal;
     white-space: nowrap;
     border: 3px solid white;
-    box-shadow: 6px 6px 0 #000;
+    box-shadow: 6px 6px 0 #ffffff;
     z-index: 999999;
     pointer-events: none;
     opacity: 0;
@@ -634,6 +634,12 @@ footer {
     opacity: 1 !important;
     visibility: visible !important;
     transform: translateX(-50%) translateY(0) rotate(2deg) scale(1) !important;
+}
+
+.tool-item:active {
+    transform: scale(0.9) rotate(var(--r)); /* Efek mendem dikit pas ditekan */
+    background: #fff;
+    color: #dc143c;
 }
 
 .tool-item::before {
