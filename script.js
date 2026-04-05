@@ -213,3 +213,19 @@ const navObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.5 }); 
 
 observeSections.forEach(s => navObserver.observe(s));
+
+document.querySelectorAll('.tool-item').forEach(tool => {
+    tool.style.cursor = "pointer";
+
+    tool.addEventListener('click', function() {
+        const url = this.getAttribute('data-url');
+        
+        if (url) {
+            if (typeof playClickSfx === "function") playClickSfx();
+
+            setTimeout(() => {
+                window.open(url, '_blank');
+            }, 150); 
+        }
+    });
+});
