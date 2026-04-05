@@ -257,3 +257,15 @@ document.querySelectorAll('.tool-item').forEach(tool => {
         }
     });
 });
+
+document.querySelectorAll('img').forEach(img => {
+    img.addEventListener('dragstart', (e) => {
+        e.preventDefault();
+        return false;
+    });
+
+    img.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        return false;
+    });
+});
