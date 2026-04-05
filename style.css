@@ -35,6 +35,10 @@ body::-webkit-scrollbar {
     display: none;
 }
 
+#profile, #tools, #projects {
+    scroll-margin-top: 80px; 
+}
+
 .p5-navbar {
     position: fixed;
     top: 20px;
@@ -556,6 +560,17 @@ footer {
     filter: drop-shadow(5px 5px 0 #000);
 }
 
+#tools {
+    min-height: 5vh; 
+    flex-direction: column;
+    justify-content: center;
+    scroll-margin-top: 100px;
+}
+
+#profile, #projects {
+    scroll-margin-top: 100px;
+}
+
 .tools-section {
     width: 90%;
     max-width: 900px;
@@ -637,7 +652,7 @@ footer {
 }
 
 .tool-item:active {
-    transform: scale(0.9) rotate(var(--r)); /* Efek mendem dikit pas ditekan */
+    transform: scale(0.9) rotate(var(--r)); 
     background: #fff;
     color: #dc143c;
 }
