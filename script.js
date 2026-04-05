@@ -219,3 +219,25 @@ window.addEventListener('scroll', () => {
         }
     });
 });
+
+document.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    if (typeof playClickSfx === "function") playClickSfx();
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === "F12") {
+        e.preventDefault();
+        return false;
+    }
+
+    if (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J" || e.key === "C")) {
+        e.preventDefault();
+        return false;
+    }
+
+    if (e.ctrlKey && e.key === "u") {
+        e.preventDefault();
+        return false;
+    }
+});
