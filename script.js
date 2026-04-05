@@ -241,3 +241,19 @@ document.addEventListener('keydown', (e) => {
         return false;
     }
 });
+
+document.querySelectorAll('.tool-item').forEach(tool => {
+    tool.style.cursor = "pointer";
+
+    tool.addEventListener('click', function() {
+        const url = this.getAttribute('data-url');
+        
+        if (url) {
+            if (typeof playClickSfx === "function") playClickSfx();
+
+            setTimeout(() => {
+                window.open(url, '_blank'); 
+            }, 150); 
+        }
+    });
+});
