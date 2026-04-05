@@ -706,10 +706,10 @@ footer {
 
 @media (max-width: 600px) {
     .p5-bubble-text-content {
-        top: 88px;
+        top: 86px;
         right: -230px;
         width: 230px;
-        font-size: 0.4rem;
+        font-size: 0.5rem;
     }
     
     .p5-location-tag {
