@@ -20,10 +20,30 @@
     </div>
 
     <nav class="p5-navbar" id="p5Navbar">
-        <div class="nav-item"><a href="#profile">PROFILE</a></div>
-        <div class="nav-item"><a href="#tools">EQUIPPED TOOLS</a></div>
-        <div class="nav-item"><a href="#projects">CURRENT PROJECTS</a></div>
+        <div class="nav-wrapper">
+            <div class="nav-line"></div>
+
+            <div class="nav-item-container">
+                <div class="nav-dot" data-target="profile"></div>
+                <div class="nav-item"><a href="#profile">PROFILE</a></div>
+            </div>
+
+            <div class="nav-item-container">
+                <div class="nav-dot" data-target="tools"></div>
+                <div class="nav-item"><a href="#tools">EQUIPPED TOOLS</a></div>
+            </div>
+
+            <div class="nav-item-container">
+                <div class="nav-dot" data-target="projects"></div>
+                <div class="nav-item"><a href="#projects">CURRENT PROJECTS</a></div>
+            </div>
+        </div>
     </nav>
+
+    <div class="p5-location-tag">
+        <span class="location-label">SYSTEM_LOCATION:</span>
+        <span id="currentLocation" class="location-name">PROFILE</span>
+    </div>
 
     <main class="content-push">
         <div id="profile" class="header-container">
@@ -63,7 +83,7 @@
                 <div class="tool-item" data-info="3D World Building">Unity</div>
                 <div class="tool-item" data-info="Advanced Game Logic">Godot Engine</div>
                 <div class="tool-item" data-info="Web Development">VSCode</div>
-                <div class="tool-item" data-info="For Code Editing">Visual Studio</div>
+                <div class="tool-item" data-info="Code Editor">Visual Studio</div>
                 <div class="tool-item" data-info="For Photo Editing">Photoshop</div>
                 <div class="tool-item" data-info="For Color Grading">DaVinci Resolve</div>
                 <div class="tool-item" data-info="For Video Editing">Premiere Pro</div>
