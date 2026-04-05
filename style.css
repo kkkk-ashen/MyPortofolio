@@ -285,7 +285,30 @@ footer {
 }
 
 .p5-photo-wrapper {
-    z-index: 2;
+    position: absolute;
+    bottom: -90px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-5deg);
+    width: 250px;
+    height: 250px;
+    z-index: 20;
+}
+
+.p5-bubble-text-content {
+    position: absolute;
+    top: 240px;   
+    right: -530px;
+    width: 450px; 
+    color: #ffffff;   
+    font-weight: 900;
+    font-style: italic;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    line-height: 1.2;
+    z-index: 10;
+    pointer-events: none;
+    transform: rotate(10deg); 
+    text-align: left;
 }
 
 .about-container {
@@ -681,23 +704,18 @@ footer {
     transform: translateX(-50%) translateY(-5px) scale(1);
 }
 
-img {
-    -webkit-user-drag: none;    
-    -khtml-user-drag: none;
-    -moz-user-drag: none;       
-    -o-user-drag: none;
-    user-drag: none;            
-    
-    user-select: none;          
-    -webkit-user-select: none;
-    pointer-events: auto;       
-}
-
 @media (max-width: 600px) {
+    .p5-bubble-text-content {
+        top: 88px;
+        right: -230px;
+        width: 230px;
+        font-size: 0.4rem;
+    }
+    
     .p5-location-tag {
         opacity: 0%;
     }
-    
+
     .header-container {
         overflow: hidden; 
         width: 100%;
