@@ -1,331 +1,212 @@
+const modal = document.getElementById("projectModal");
+const menuToggle = document.getElementById('menuToggle');
+const p5Navbar = document.getElementById('p5Navbar');
+const closeBtn = document.querySelector(".close-button");
+const cards = document.querySelectorAll(".project-card");
+const bubbleTextElement = document.getElementById('bubbleTypingText');
+const locationName = document.getElementById('currentLocation');
+
 const playClickSfx = () => {
     const clickSfx = document.getElementById("p5ClickSfx");
     if (clickSfx) {
-        clickSfx.volume = 0.3; 
-
+        clickSfx.volume = 0.3;
         clickSfx.currentTime = 0;
-        let playPromise = clickSfx.play();
-        
-        if (playPromise !== undefined) {
-            playPromise.catch(error => {
-                console.log("Sfx tertunda: Klik layar dulu!");
-            });
-        }
+        clickSfx.play().catch(() => console.log("Sfx tertunda: Klik layar dulu!"));
     }
 };
 
-const bubbleTextElement = document.getElementById('bubbleTypingText');
 const phrases = [
     "Hi, nice to meet you!",
     "I'm Ada Guna",
     "Welcome to my palace...",
     "Ready to see my projects?"
 ];
-
-let phraseIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
-let typeSpeed = 100;
+let phraseIndex = 0, charIndex = 0, isDeleting = false, typeSpeed = 100;
 
 function type() {
+    if (!bubbleTextElement) return;
     const currentPhrase = phrases[phraseIndex];
     
-    if (isDeleting) {
-        bubbleTextElement.textContent = currentPhrase.substring(0, charIndex - 1);
-        charIndex--;
-        typeSpeed = 50;
-    } else {
-        bubbleTextElement.textContent = currentPhrase.substring(0, charIndex + 1);
-        charIndex++;
-        typeSpeed = 100;
-    }
+    bubbleTextElement.textContent = isDeleting 
+        ? currentPhrase.substring(0, charIndex - 1) 
+        : currentPhrase.substring(0, charIndex + 1);
+
+    charIndex = isDeleting ? charIndex - 1 : charIndex + 1;
+    typeSpeed = isDeleting ? 50 : 100;
 
     if (!isDeleting && charIndex === currentPhrase.length) {
-        typeSpeed = 2000; 
+        typeSpeed = 2000;
         isDeleting = true;
     } else if (isDeleting && charIndex === 0) {
         isDeleting = false;
         phraseIndex = (phraseIndex + 1) % phrases.length;
         typeSpeed = 500;
     }
-
     setTimeout(type, typeSpeed);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    type();
+if (menuToggle && p5Navbar) {
+    menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        p5Navbar.classList.toggle('active');
+        playClickSfx();
+    });
+}
+
+document.querySelectorAll('.nav-item a').forEach(link => {
+    link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+            menuToggle.classList.remove('active');
+            p5Navbar.classList.remove('active');
+        }
+        playClickSfx();
+    });
 });
 
 const projectData = {
     "HIBA": {
         title: "HIBA - Survival Roguelike",
         image: "projectroguelike.png",
-        desc: "HIBA is a 3D Roguelike Game inspired by <b>Muck</b>, Where you born with an axe and start fight againts enemies such as zombie, slime and much more so you get exp from it to get leveled up, defeat the boss and eventually beat the game. well thats the plan though, for now i only done making procedural generations(meaning: you would not get the same world as you play.), and spawning a pretty boring grass and trees and attacking mechanics."
+        desc: "HIBA is a 3D Roguelike Game inspired by <b>Muck</b>, Where you born with an axe and start fight againts enemies such as zombie, slime and much more so you get exp from it to get leveled up, defeat the boss and eventually beat the game."
     }
 };
 
-const modal = document.getElementById("projectModal");
-const modalTitle = document.getElementById("modalTitle");
-const modalDesc = document.getElementById("modalDescription");
-const modalImg = document.getElementById("modalImg");
-const closeBtn = document.querySelector(".close-button");
-const projectCards = document.querySelectorAll(".project-card");
-const menuToggleBtn = document.getElementById('menuToggle'); 
-
-const toggleMenuVisibility = (isVisible) => {
-    if (menuToggleBtn) {
-        menuToggleBtn.style.opacity = isVisible ? "1" : "0";
-        menuToggleBtn.style.pointerEvents = isVisible ? "auto" : "none";
-        menuToggleBtn.style.transition = "opacity 0.3s ease";
-    }
-};
-
-projectCards.forEach(card => {
+cards.forEach(card => {
     card.addEventListener("click", function() {
         const title = this.querySelector(".project-title").innerText;
         const data = projectData[title];
 
         if (data) {
-            modalTitle.innerText = data.title;
-            modalDesc.innerHTML = data.desc;
-            modalImg.src = data.image;
-        } else {
-            modalTitle.innerText = title;
-            modalDesc.innerText = "Detail proyek belum ditambahkan.";
-            modalImg.src = "";
+            document.getElementById("modalTitle").innerText = data.title;
+            document.getElementById("modalDescription").innerHTML = data.desc;
+            document.getElementById("modalImg").src = data.image;
         }
         
         modal.style.display = "block";
-        toggleMenuVisibility(false); 
-        if (typeof playClickSfx === "function") playClickSfx(); 
+        if (menuToggle) {
+            menuToggle.style.opacity = "0";
+            menuToggle.style.pointerEvents = "none";
+        }
+        playClickSfx();
     });
 });
 
-if (closeBtn) {
-    closeBtn.onclick = () => {
-        modal.style.display = "none";
-        toggleMenuVisibility(true); 
-        if (typeof playClickSfx === "function") playClickSfx();
-    };
-}
-
-window.addEventListener("click", (event) => {
-    if (event.target == modal) {
-        modal.style.display = "none";
-        toggleMenuVisibility(true); 
+const closeModal = () => {
+    if (!modal) return;
+    modal.style.display = "none";
+    if (menuToggle) {
+        menuToggle.style.opacity = "1";
+        menuToggle.style.pointerEvents = "auto";
     }
-});
+    playClickSfx();
+};
+
+if (closeBtn) closeBtn.onclick = closeModal;
+window.addEventListener('click', (e) => { if (e.target == modal) closeModal(); });
 
 const cube = document.querySelector('.cube');
 const scene = document.querySelector('.scene');
 
-let isDragging = false;
-let previousX = 0;
-let previousY = 0;
-let rotateX = -30;
-let rotateY = 45;
+let isDragging = false, prevX = 0, prevY = 0;
 
-const startDragging = (e) => {
-    isDragging = true;
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-    previousX = clientX;
-    previousY = clientY;
-};
-
-const moveDragging = (e) => {
-    if (!isDragging) return;
-
-    if (e.touches && (e.target.closest('.scene') || e.target.closest('.cube'))) {
-        e.preventDefault(); 
-    }
-
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-
-    const deltaX = clientX - previousX;
-    const deltaY = clientY - previousY;
-
-    rotateY += deltaX * 0.5;
-    rotateX -= deltaY * 0.5;
-
-    updateRotation();
-
-    previousX = clientX;
-    previousY = clientY;
-};
-
-const stopDragging = () => {
-    isDragging = false;
-};
-
-window.addEventListener('mousedown', startDragging);
-window.addEventListener('mousemove', moveDragging);
-window.addEventListener('mouseup', stopDragging);
-
-window.addEventListener('touchstart', startDragging, { passive: false });
-window.addEventListener('touchmove', moveDragging, { passive: false });
-window.addEventListener('touchend', stopDragging);
+let rotX = -25;
+let rotY = 45;
 
 function updateRotation() {
     if (cube) {
-        cube.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        cube.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
     }
 }
 
 updateRotation();
 
-cards.forEach(card => {
-    card.addEventListener("click", () => {
-        playClickSfx();
-    });
-});
-
-if (closeBtn) {
-    closeBtn.addEventListener("click", () => {
-        playClickSfx();
-    });
-}
-
-document.querySelectorAll('.nav-item').forEach(nav => {
-    nav.addEventListener('click', () => {
-        playClickSfx();
-    });
-});
-
-document.querySelectorAll('.tool-item').forEach(tool => {
-    tool.addEventListener('mouseenter', () => {
-        playClickSfx();
-    });
-});
-
-const menuToggle = document.getElementById('menuToggle');
-const p5Navbar = document.getElementById('p5Navbar');
-const navLinks = document.querySelectorAll('.nav-item a');
-
-if (menuToggle) {
-    menuToggle.addEventListener('click', () => {
-        menuToggle.classList.toggle('active');
-        p5Navbar.classList.toggle('active');
-        playClickSfx(); 
-    });
-}
-
-navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        if (window.innerWidth <= 768) {
-            menuToggle.classList.remove('active');
-            p5Navbar.classList.remove('active');
-        }
-    });
-});
-
-const locationName = document.getElementById('currentLocation');
-const sections = document.querySelectorAll('div[id], section[id], footer[id]');
-
-const observerOptions = {
-    root: null,
-    rootMargin: '-20% 0px -70% 0px', 
-    threshold: 0
+const startDrag = (e) => {
+    isDragging = true;
+    prevX = e.touches ? e.touches[0].clientX : e.clientX;
+    prevY = e.touches ? e.touches[0].clientY : e.clientY;
+    if (scene) scene.style.cursor = 'grabbing';
 };
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const id = entry.target.getAttribute('id');
-            
-            const nameMap = {
-                'profile': 'PROFILE',
-                'tools': 'EQUIPPED_TOOLS',
-                'projects': 'CURRENT_PROJECTS',
-                'contact': 'CONTACT_INFO'
-            };
+const moveDrag = (e) => {
+    if (!isDragging || !cube) return;
+    const x = e.touches ? e.touches[0].clientX : e.clientX;
+    const y = e.touches ? e.touches[0].clientY : e.clientY;
+    
+    rotY += (x - prevX) * 0.5;
+    rotX -= (y - prevY) * 0.5;
+    
+    updateRotation(); 
+    
+    prevX = x; prevY = y;
+};
 
-            if (nameMap[id]) {
-                locationName.innerText = nameMap[id];
-                
-                locationName.style.opacity = "0";
-                setTimeout(() => { locationName.style.opacity = "1"; }, 50);
-            }
-        }
-    });
-}, observerOptions);
-
-sections.forEach(section => observer.observe(section));
+window.addEventListener('mousedown', startDrag);
+window.addEventListener('touchstart', startDrag, { passive: false });
+window.addEventListener('mousemove', moveDrag);
+window.addEventListener('touchmove', moveDrag, { passive: false });
+window.addEventListener('mouseup', () => isDragging = false);
+window.addEventListener('touchend', () => isDragging = false);
 
 const dots = document.querySelectorAll('.nav-dot');
-const sectionList = ['profile', 'tools', 'projects'];
+const sections = document.querySelectorAll('div[id], section[id], footer[id]');
 
 window.addEventListener('scroll', () => {
     let current = "";
-    
-    const checkpoint = window.innerHeight / 3; 
+    const checkpoint = window.innerHeight / 3;
+    const navSections = ['profile', 'tools', 'projects'];
 
-    sectionList.forEach((id) => {
-        const section = document.getElementById(id);
-        if (section) {
-            const rect = section.getBoundingClientRect();
-            
-            if (rect.top <= checkpoint) {
-                current = id;
+    if (window.scrollY < 100) {
+        current = "profile";
+    } else {
+        navSections.forEach(id => {
+            const s = document.getElementById(id);
+            if (s) {
+                const rect = s.getBoundingClientRect();
+                if (rect.top <= checkpoint && rect.bottom >= checkpoint) {
+                    current = id;
+                }
             }
-        }
-    });
+        });
+    }
 
-    dots.forEach((dot) => {
-        dot.classList.remove('active');
-        if (dot.getAttribute('data-target') === current) {
+    dots.forEach(dot => {
+        const target = dot.getAttribute('data-target');
+        if (target === current) {
             dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
         }
     });
+
+    const nameMap = { 
+        'profile': 'PROFILE', 
+        'tools': 'EQUIPPED_TOOLS', 
+        'projects': 'CURRENT_PROJECTS', 
+        'contact': 'CONTACT_INFO' 
+    };
+
+    if (nameMap[current] && locationName) {
+        if (locationName.innerText !== nameMap[current]) {
+            locationName.innerText = nameMap[current];
+            locationName.style.opacity = "0";
+            setTimeout(() => locationName.style.opacity = "1", 50);
+        }
+    }
 });
 
-document.addEventListener('contextmenu', (e) => {
-    e.preventDefault();
-    if (typeof playClickSfx === "function") playClickSfx();
-});
-
-document.addEventListener('keydown', (e) => {
-    if (e.key === "F12") {
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+    if (e.key === "F12" || (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key)) || (e.ctrlKey && e.key === "u")) {
         e.preventDefault();
-        return false;
-    }
-
-    if (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J" || e.key === "C")) {
-        e.preventDefault();
-        return false;
-    }
-
-    if (e.ctrlKey && e.key === "u") {
-        e.preventDefault();
-        return false;
     }
 });
 
 document.querySelectorAll('.tool-item').forEach(tool => {
-    tool.style.cursor = "pointer";
-
     tool.addEventListener('click', function() {
         const url = this.getAttribute('data-url');
-        
-        if (url) {
-            if (typeof playClickSfx === "function") playClickSfx();
-
-            setTimeout(() => {
-                window.open(url, '_blank'); 
-            }, 150); 
-        }
+        if (url) { playClickSfx(); setTimeout(() => window.open(url, '_blank'), 150); }
     });
+    tool.addEventListener('mouseenter', playClickSfx);
 });
 
-document.querySelectorAll('img').forEach(img => {
-    img.addEventListener('dragstart', (e) => {
-        e.preventDefault();
-        return false;
-    });
-
-    img.addEventListener('contextmenu', (e) => {
-        e.preventDefault();
-        return false;
-    });
-});
+document.addEventListener('DOMContentLoaded', type);
