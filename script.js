@@ -69,9 +69,18 @@ const modalTitle = document.getElementById("modalTitle");
 const modalDesc = document.getElementById("modalDescription");
 const modalImg = document.getElementById("modalImg");
 const closeBtn = document.querySelector(".close-button");
-const cards = document.querySelectorAll(".project-card");
+const projectCards = document.querySelectorAll(".project-card");
+const menuToggleBtn = document.getElementById('menuToggle'); 
 
-cards.forEach(card => {
+const toggleMenuVisibility = (isVisible) => {
+    if (menuToggleBtn) {
+        menuToggleBtn.style.opacity = isVisible ? "1" : "0";
+        menuToggleBtn.style.pointerEvents = isVisible ? "auto" : "none";
+        menuToggleBtn.style.transition = "opacity 0.3s ease";
+    }
+};
+
+projectCards.forEach(card => {
     card.addEventListener("click", function() {
         const title = this.querySelector(".project-title").innerText;
         const data = projectData[title];
@@ -80,23 +89,32 @@ cards.forEach(card => {
             modalTitle.innerText = data.title;
             modalDesc.innerHTML = data.desc;
             modalImg.src = data.image;
-            modal.style.display = "block";
         } else {
             modalTitle.innerText = title;
             modalDesc.innerText = "Detail proyek belum ditambahkan.";
             modalImg.src = "";
-            modal.style.display = "block";
         }
+        
+        modal.style.display = "block";
+        toggleMenuVisibility(false); 
+        if (typeof playClickSfx === "function") playClickSfx(); 
     });
 });
 
 if (closeBtn) {
-    closeBtn.onclick = () => modal.style.display = "none";
+    closeBtn.onclick = () => {
+        modal.style.display = "none";
+        toggleMenuVisibility(true); 
+        if (typeof playClickSfx === "function") playClickSfx();
+    };
 }
 
-window.onclick = (event) => {
-    if (event.target == modal) modal.style.display = "none";
-};
+window.addEventListener("click", (event) => {
+    if (event.target == modal) {
+        modal.style.display = "none";
+        toggleMenuVisibility(true); 
+    }
+});
 
 const cube = document.querySelector('.cube');
 const scene = document.querySelector('.scene');
