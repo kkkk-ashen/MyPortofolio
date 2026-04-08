@@ -107,10 +107,13 @@ window.addEventListener('click', (e) => { if (e.target == modal) closeModal(); }
 const cube = document.querySelector('.cube');
 const scene = document.querySelector('.scene');
 
-let isDragging = false, prevX = 0, prevY = 0;
-
+let isDragging = false;
+let prevX = 0, prevY = 0;
 let rotX = -25;
 let rotY = 45;
+
+let autoRotateY = 45;
+let idleTimer;
 
 function updateRotation() {
     if (cube) {
@@ -118,10 +121,18 @@ function updateRotation() {
     }
 }
 
-updateRotation();
+function animate() {
+    if (!isDragging) {
+        autoRotateY += 0.5;
+        rotY = autoRotateY; 
+        updateRotation();
+    }
+    requestAnimationFrame(animate);
+}
 
 const startDrag = (e) => {
     isDragging = true;
+    clearTimeout(idleTimer);
     prevX = e.touches ? e.touches[0].clientX : e.clientX;
     prevY = e.touches ? e.touches[0].clientY : e.clientY;
     if (scene) scene.style.cursor = 'grabbing';
@@ -135,17 +146,35 @@ const moveDrag = (e) => {
     rotY += (x - prevX) * 0.5;
     rotX -= (y - prevY) * 0.5;
     
-    updateRotation(); 
-    
+    updateRotation();
     prevX = x; prevY = y;
+};
+
+const stopDrag = () => {
+    if (!isDragging) return;
+    isDragging = false;
+    if (scene) scene.style.cursor = 'grab';
+
+    idleTimer = setTimeout(() => {
+        cube.style.transition = "transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
+        rotX = -25;
+        autoRotateY = rotY; 
+        updateRotation();
+
+        setTimeout(() => {
+            cube.style.transition = "none";
+        }, 1500);
+    }, 2000); 
 };
 
 window.addEventListener('mousedown', startDrag);
 window.addEventListener('touchstart', startDrag, { passive: false });
 window.addEventListener('mousemove', moveDrag);
 window.addEventListener('touchmove', moveDrag, { passive: false });
-window.addEventListener('mouseup', () => isDragging = false);
-window.addEventListener('touchend', () => isDragging = false);
+window.addEventListener('mouseup', stopDrag);
+window.addEventListener('touchend', stopDrag);
+
+animate();
 
 const dots = document.querySelectorAll('.nav-dot');
 const sections = document.querySelectorAll('div[id], section[id], footer[id]');
