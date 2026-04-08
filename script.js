@@ -66,7 +66,7 @@ document.querySelectorAll('.nav-item a').forEach(link => {
 const projectData = {
     "HIBA": {
         title: "HIBA - Survival Roguelike",
-        image: "projectroguelike.png",
+        image: "assets/projectroguelike.png",
         desc: "HIBA is a 3D Roguelike Game inspired by <b>Muck</b>, Where you born with an axe and start fight againts enemies such as zombie, slime and much more so you get exp from it to get leveled up, defeat the boss and eventually beat the game. well thats the plan though, for now i only done making procedural generations(meaning: you would not get the same world as you play.), and spawning a pretty boring grass and trees and attacking mechanics."
     }
 };
