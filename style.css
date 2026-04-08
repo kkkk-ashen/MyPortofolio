@@ -18,7 +18,7 @@ html, body, .content-push, .main-container {
 
 body {
     background-color: #000000;
-    background-image: url('tokyo-rainy-night.gif');
+    background-image: url('assets/tokyo-rainy-night.gif');
     background-size: cover; 
     background-position: center 20px;
     background-repeat: no-repeat;
@@ -229,6 +229,7 @@ html {
     opacity: 1;
     transform: translateX(0);
 }
+
 
 .project-card {
     border: 3px solid #000;
