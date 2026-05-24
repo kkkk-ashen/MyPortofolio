@@ -44,6 +44,143 @@ body::-webkit-scrollbar {
     scroll-margin-top: 80px; 
 }
 
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #37475f;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Musik Box Utama */
+.music-box {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 210px;
+    height: 75px;
+    background-color: #000000; /* Diubah ke hitam agar teks merah/putih lebih kontras */
+    cursor: pointer;
+    transform: skewX(-10deg) rotate(3deg); /* Menggunakan skew khas Persona 5 */
+    filter: drop-shadow(-6px 6px 0 #ff0000);
+    border: #ffffff 3px solid;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    padding-right: 50px;
+    transition: all 0.2s ease;
+}
+
+.music-disc-p5 {
+    position: absolute;
+    right: -20px; /* Sengaja dikeluarkan dari batas box ala P5 */
+    top: 50%;
+    transform: translateY(-50%) skewX(10deg); /* Counter-skew agar bulat sempurna */
+    width: 55px;
+    height: 55px;
+    background-color: #000; /* Lapisan dasar hitam berbentuk lingkaran */
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    box-shadow: 4px 4px 0 #ff0000;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+    pointer-events: none; /* Biar klik menembus ke kontainer utama */
+}
+
+.disc-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    /* Menggunakan animasi bernama p5DiscRotate, durasi 4 detik, konstan berputar */
+    animation: p5DiscRotate 4s linear infinite;
+    animation-play-state: paused; /* Default awal dijeda sampai musik berputar */
+}
+
+@keyframes p5DiscRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.music-box:hover {
+    transform: skewX(-10deg) rotate(3deg) scale(1.03);
+    filter: drop-shadow(-8px 8px 0 #dc143c);
+}
+
+/* Kontainer Informasi Musik (Counter-Skew agar teks tetap terbaca) */
+.music-info-p5 {
+    transform: skewX(10deg); 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    width: 160px;
+}
+
+/* Tag Status Kecil di Atas Judul */
+.music-status-tag {
+    font-size: 0.55rem;
+    color: #000000;
+    background-color: #ffffff;
+    font-weight: 900;
+    padding: 1px 5px;
+    width: fit-content;
+    margin-bottom: 2px;
+    letter-spacing: 1px;
+}
+
+/* Teks Judul Lagu */
+.music-title-text {
+    color: #ffffff;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Tombol Play/Pause */
+#playPauseButton {
+    width: 35px;
+    height: 35px;
+    background-color: #ff0000;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    position: absolute;
+    right: 30px; /* Sengaja ditabrakkan ke ujung kanan khas UI P5 */
+    top: 50%;
+    transform: translateY(-50%) skewX(10deg);
+    box-shadow: 4px 4px 0 #000000;
+    transition: all 0.1s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+#playPauseButton:hover {
+    background-color: #ffffff;
+    color: #ff0000;
+    box-sizing: border-box;
+}
+
+#playPauseButton:active {
+    transform: translateY(-50%) skewX(10deg) translate(2px, 2px);
+    box-shadow: 2px 2px 0 #000000;
+}
 .p5-navbar {
     position: fixed;
     top: 20px;
@@ -793,7 +930,6 @@ footer {
     }
 
     .header-container {
-        overflow: hidden; 
         width: 100%;
     }
 
@@ -825,6 +961,23 @@ footer {
 
     .p5-navbar.active {
         left: 20px !important; 
+    }
+
+    .music-box {
+        bottom: 90px; /* Taruh sedikit di atas navbar mobile agar tidak bertumpukan */
+        left: 20px;
+        /* SEMBUNYIKAN: Digeser sejauh -350px ke kiri luar layar & dibuat transparan */
+        transform: translateX(-350px) skewX(-10deg); 
+        opacity: 0;
+        pointer-events: none; /* Biar tidak bisa diklik tidak sengaja saat ngumpet */
+    }
+
+    /* MUNCULKAN: Saat tombol garis 3 aktif, kelas .active akan dipasang */
+    .music-box.active {
+        /* Meluncur masuk ke posisi semula dengan efek miring khas P5 */
+        transform: translateX(0) skewX(-10deg); 
+        opacity: 1;
+        pointer-events: auto; /* Aktifkan kembali fungsi kliknya */
     }
 
     .p5-menu-toggle.active span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
@@ -877,5 +1030,16 @@ footer {
 
     .projects-grid {
         grid-template-columns: 1fr;
+    }
+
+    .banner-video-container
+    {
+        height: 190px;
+    }
+
+    .p5-photo-wrapper
+    {
+        top: 130px;
+        z-index: 100000;
     }
 }
