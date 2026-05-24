@@ -49,6 +49,12 @@ if (menuToggle && p5Navbar) {
     menuToggle.addEventListener('click', () => {
         menuToggle.classList.toggle('active');
         p5Navbar.classList.toggle('active');
+        
+        const musicBox = document.getElementById('musicBoxContainer');
+        if (musicBox) {
+            musicBox.classList.toggle('active');
+        }
+        
         playClickSfx();
     });
 }
@@ -58,6 +64,11 @@ document.querySelectorAll('.nav-item a').forEach(link => {
         if (window.innerWidth <= 768) {
             menuToggle.classList.remove('active');
             p5Navbar.classList.remove('active');
+            
+            const musicBox = document.getElementById('musicBoxContainer');
+            if (musicBox) {
+                musicBox.classList.remove('active');
+            }
         }
         playClickSfx();
     });
@@ -83,10 +94,18 @@ cards.forEach(card => {
         }
         
         modal.style.display = "block";
+        
         if (menuToggle) {
             menuToggle.style.opacity = "0";
             menuToggle.style.pointerEvents = "none";
+            menuToggle.classList.remove('active');
         }
+
+        if (p5Navbar) p5Navbar.classList.remove('active');
+        
+        const musicBox = document.getElementById('musicBoxContainer');
+        if (musicBox) musicBox.classList.remove('active');
+        
         playClickSfx();
     });
 });
@@ -94,6 +113,7 @@ cards.forEach(card => {
 const closeModal = () => {
     if (!modal) return;
     modal.style.display = "none";
+    
     if (menuToggle) {
         menuToggle.style.opacity = "1";
         menuToggle.style.pointerEvents = "auto";
@@ -111,7 +131,6 @@ let isDragging = false;
 let prevX = 0, prevY = 0;
 let rotX = -25;
 let rotY = 45;
-
 let autoRotateY = 45;
 let idleTimer;
 
@@ -167,8 +186,10 @@ const stopDrag = () => {
     }, 2000); 
 };
 
-window.addEventListener('mousedown', startDrag);
-window.addEventListener('touchstart', startDrag, { passive: false });
+if (scene) {
+    scene.addEventListener('mousedown', startDrag);
+    scene.addEventListener('touchstart', startDrag, { passive: false });
+}
 window.addEventListener('mousemove', moveDrag);
 window.addEventListener('touchmove', moveDrag, { passive: false });
 window.addEventListener('mouseup', stopDrag);
@@ -176,8 +197,81 @@ window.addEventListener('touchend', stopDrag);
 
 animate();
 
+document.addEventListener("DOMContentLoaded", () => {
+    const musicPlayer = document.getElementById("musicPlayer");
+    const playPauseButton = document.getElementById("playPauseButton");
+    const musicBoxContainer = document.getElementById("musicBoxContainer");
+    const discImage = document.querySelector(".disc-image");
+
+    let hasInteracted = false;
+
+    function updateMusicUI() {
+        if (!musicPlayer || !playPauseButton) return;
+
+        if (musicPlayer.paused) {
+            playPauseButton.textContent = "►"; 
+            playPauseButton.style.backgroundColor = "#ff0000";
+            playPauseButton.style.color = "#ffffff";
+            if (discImage) discImage.style.animationPlayState = "paused";
+        } else {
+            playPauseButton.textContent = "❚❚"; 
+            playPauseButton.style.backgroundColor = "#ffffff";
+            playPauseButton.style.color = "#ff0000";
+            if (discImage) discImage.style.animationPlayState = "running";
+        }
+    }
+
+    function toggleMusic(triggerSfx = true) {
+        if (!musicPlayer) return;
+        
+        if (triggerSfx) playClickSfx(); 
+
+        if (musicPlayer.paused) {
+            musicPlayer.play()
+                .then(() => updateMusicUI())
+                .catch(err => console.log("Autoplay diblokir browser, menunggu interaksi user."));
+        } else {
+            musicPlayer.pause();
+            updateMusicUI();
+        }
+    }
+
+    function triggerAutoplay() {
+        if (hasInteracted) return;
+        hasInteracted = true;
+        
+        if (musicPlayer && musicPlayer.paused) {
+            toggleMusic(false); 
+        }
+
+        window.removeEventListener("click", triggerAutoplay);
+        window.removeEventListener("scroll", triggerAutoplay);
+        window.removeEventListener("touchstart", triggerAutoplay);
+    }
+
+    window.addEventListener("click", triggerAutoplay);
+    window.addEventListener("scroll", triggerAutoplay);
+    window.addEventListener("touchstart", triggerAutoplay);
+
+    if (playPauseButton) {
+        playPauseButton.addEventListener("click", (e) => {
+            e.stopPropagation();
+            hasInteracted = true;
+            toggleMusic(true);
+        });
+    }
+
+    if (musicBoxContainer) {
+        musicBoxContainer.addEventListener("click", () => {
+            hasInteracted = true;
+            toggleMusic(true);
+        });
+    }
+    
+    updateMusicUI();
+});
+
 const dots = document.querySelectorAll('.nav-dot');
-const sections = document.querySelectorAll('div[id], section[id], footer[id]');
 
 window.addEventListener('scroll', () => {
     let current = "";
@@ -241,21 +335,12 @@ document.querySelectorAll('.tool-item').forEach(tool => {
 document.addEventListener('DOMContentLoaded', type);
 
 document.querySelectorAll('img').forEach(img => {
-    img.addEventListener('dragstart', (e) => {
-        e.preventDefault();
-        return false;
-    });
-
-    img.addEventListener('contextmenu', (e) => {
-        e.preventDefault();
-        return false;
-    });
+    img.addEventListener('dragstart', (e) => e.preventDefault());
+    img.addEventListener('contextmenu', (e) => e.preventDefault());
 });
 
 window.addEventListener('wheel', (e) => {
-    if (e.ctrlKey) {
-        e.preventDefault();
-    }
+    if (e.ctrlKey) e.preventDefault();
 }, { passive: false });
 
 document.addEventListener('keydown', (e) => {
