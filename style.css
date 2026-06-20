@@ -346,12 +346,28 @@ html {
     position: absolute;
     top: 0;
     left: -100%; 
-    width: 43%;  
+    width: 75%;  
     height: 100%;
     background: #dc143c;
     transform: skewX(-15deg);
     transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     z-index: 1;
+}
+
+/* Styling Link di Dalam Modal */
+#modalDescription a {
+    color: #272727 !important; /* Warna merah khas P5 */
+    text-decoration: underline;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    z-index: 1010; /* Berada di atas lapisan teks modal biasa */
+    pointer-events: auto !important; /* Memaksa browser mengizinkan klik */
+}
+
+#modalDescription a:hover {
+    color: #ffffff !important;
+    background-color: #ff0000; /* Efek invert saat diarahkan cursor */
 }
 
 .project-card:hover .project-title-wrapper::before {
