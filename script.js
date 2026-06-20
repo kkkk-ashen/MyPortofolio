@@ -86,7 +86,7 @@ const projectData = {
         title: "What's this Place?",
         image: "assets/ssWhatsthisgame.png",
         // Di bawah ini tag <a> sudah diperbaiki pakai href dan target='_blank' agar membuka tab baru
-        desc: "What's this Place? is a 3D Platformer game with mutations in it, you must get mutated to be able to get to the next stage. the reach or goal is get to the Turtle. this game is done for a GameJam so its not polished at all! so if you want to play it heres the link: <a href='https://centepydd.itch.io/whats-this-place' target='_blank'>https://centepydd.itch.io/whats-this-place</a>"
+        desc: "What's this Place? is a 3D Platformer game with mutations in it, you must get mutated to be able to get to the next stage. the reach or goal is get to the Turtle. this game is done for a GameJam so its not polished at all! if you want to trying it here's the link: <a href='https://centepydd.itch.io/whats-this-place' target='_blank'>https://centepydd.itch.io/whats-this-place</a>"
     }
 };
 
