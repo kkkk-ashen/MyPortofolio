@@ -74,11 +74,19 @@ document.querySelectorAll('.nav-item a').forEach(link => {
     });
 });
 
+/* --- DATA PROYEK (SUDAH DIPERBAIKI STRUKTUR LINK-NYA) --- */
 const projectData = {
     "HIBA": {
         title: "HIBA - Survival Roguelike",
         image: "assets/projectroguelike.png",
         desc: "HIBA is a 3D Roguelike Game inspired by <b>Muck</b>, Where you born with an axe and start fight againts enemies such as zombie, slime and much more so you get exp from it to get leveled up, defeat the boss and eventually beat the game. well thats the plan though, for now i only done making procedural generations(meaning: you would not get the same world as you play.), and spawning a pretty boring grass and trees and attacking mechanics."
+    },
+
+    "What's This Place?": { 
+        title: "What's this Place?",
+        image: "assets/ssWhatsthisgame.png",
+        // Di bawah ini tag <a> sudah diperbaiki pakai href dan target='_blank' agar membuka tab baru
+        desc: "What's this Place? is a 3D Platformer game with mutations in it, you must get mutated to be able to get to the next stage. the reach or goal is get to the Turtle. this game is done for a GameJam so its not polished at all! so if you want to play it heres the link: <a href='https://centepydd.itch.io/whats-this-place' target='_blank'>https://centepydd.itch.io/whats-this-place</a>"
     }
 };
 
@@ -122,7 +130,18 @@ const closeModal = () => {
 };
 
 if (closeBtn) closeBtn.onclick = closeModal;
-window.addEventListener('click', (e) => { if (e.target == modal) closeModal(); });
+
+/* --- PERBAIKAN LANGKAH 2 ADA DI SINI --- */
+window.addEventListener('click', (e) => { 
+    // Jika yang diklik adalah link <a> di dalam modal, jangan tutup modalnya!
+    if (e.target.tagName === 'A') {
+        return; 
+    }
+    // Jika diklik di area hitam luar modal, baru tutup modal
+    if (e.target == modal) {
+        closeModal(); 
+    }
+});
 
 const cube = document.querySelector('.cube');
 const scene = document.querySelector('.scene');
@@ -304,7 +323,7 @@ window.addEventListener('scroll', () => {
     const nameMap = { 
         'profile': 'PROFILE', 
         'tools': 'EQUIPPED_TOOLS', 
-        'projects': 'CURRENT_PROJECTS', 
+        'projects': 'PROJECTS', 
         'contact': 'CONTACT_INFO' 
     };
 
